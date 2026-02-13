@@ -28,3 +28,20 @@ tasks.test {
 application {
     mainClass.set("com.isaacferrairo.tema4gradle.Main")
 }
+
+
+val ollamaVersion by tasks.registering(Exec::class) {
+    commandLine("powershell", "-NoProfile", "-Command", "ollama --version")
+}
+
+val ollamaPs by tasks.registering(Exec::class) {
+    commandLine("powershell", "-NoProfile", "-Command", "ollama ps")
+}
+
+val llmInfo by tasks.registering {
+    dependsOn(ollamaVersion, ollamaPs)
+
+    doLast {
+        println("Demo finalizada")
+    }
+}
